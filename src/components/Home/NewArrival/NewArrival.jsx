@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import './NewArrival.scss'; 
 
 class NewArrival extends PureComponent {
     render() {

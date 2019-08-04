@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import './QuickCatetories.scss'; 
 
 class QuickCatetories extends PureComponent {
     render() {
