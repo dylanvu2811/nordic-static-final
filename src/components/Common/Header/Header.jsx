@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import './Header.scss'; 
 
 class Header extends PureComponent {
@@ -56,8 +57,8 @@ class Header extends PureComponent {
                                     </div>
                                     <nav className="navbar">
                                         <ul className="navbar_menu">
-                                            <li><a href="#">home</a></li>
-                                            <li><a href="categories.html">shop</a></li>
+                                            <li><NavLink exact to="/">Home</NavLink></li>
+                                            <li><NavLink exact to="/shop">Shop</NavLink></li>
                                             <li><a href="#">promotion</a></li>
                                             <li><a href="https://nordiccoder.com/blog" target="blank">blog</a></li>
                                             <li><a href="contact.html">contact</a></li>
