@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './NewArrival.scss'; 
+import { NavLink } from 'react-router-dom';
 
 class NewArrival extends PureComponent {
     render() {
@@ -38,7 +39,7 @@ class NewArrival extends PureComponent {
                                         <div className="favorite favorite_left" />
                                         <div className="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
                                         <div className="product_info">
-                                            <h6 className="product_name"><a href="single.html">Fujifilm X100T 16 MP Digital Camera (Silver)</a></h6>
+                                            <h6 className="product_name"><NavLink exact to="/single">Fujifilm X100T 16 MP Digital Camera (Silver)</NavLink></h6>
                                             <div className="product_price">$520.00<span>$590.00</span></div>
                                         </div>
                                     </div>

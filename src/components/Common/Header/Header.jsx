@@ -59,8 +59,6 @@ class Header extends PureComponent {
                                         <ul className="navbar_menu">
                                             <li><NavLink exact to="/">Home</NavLink></li>
                                             <li><NavLink exact to="/shop">Shop</NavLink></li>
-                                            <li><a href="#">promotion</a></li>
-                                            <li><a href="https://nordiccoder.com/blog" target="blank">blog</a></li>
                                             <li><a href="contact.html">contact</a></li>
                                         </ul>
                                         <ul className="navbar_user">
