@@ -5,6 +5,7 @@ import Header from './components/Common/Header/Header';
 import Home from './containers/Home/Home';
 import Shop from './containers/Shop/Shop';
 import Footer from './components/Common/Footer/Footer';
+import ShippingInformation from './components/Common/ShippingInformation/ShippingInformation';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/shop" component={Shop} />
           </Switch>
+          <ShippingInformation />
           <Footer />
       </BrowserRouter>
   );
