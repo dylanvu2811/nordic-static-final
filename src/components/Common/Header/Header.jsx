@@ -59,7 +59,7 @@ class Header extends PureComponent {
                                         <ul className="navbar_menu">
                                             <li><NavLink exact to="/">Home</NavLink></li>
                                             <li><NavLink exact to="/shop">Shop</NavLink></li>
-                                            <li><a href="contact.html">contact</a></li>
+                                            <li><NavLink exact to="/contact">Contact</NavLink></li>
                                         </ul>
                                         <ul className="navbar_user">
                                             {/* <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li> */}
@@ -119,12 +119,9 @@ class Header extends PureComponent {
                                     <li><a href="#"><i className="fa fa-user-plus" aria-hidden="true" />Register</a></li>
                                 </ul>
                             </li>
-                            <li className="menu_item"><a href="#">home</a></li>
-                            <li className="menu_item"><a href="categories.html">shop</a></li>
-                            <li className="menu_item"><a href="#">promotion</a></li>
-                            <li className="menu_item"><a href="#">pages</a></li>
-                            <li className="menu_item"><a href="https://nordiccoder.com/blog" target="blank">blog</a></li>
-                            <li className="menu_item"><a href="#">contact</a></li>
+                            <li className="menu_item"><NavLink exact to="/">Home</NavLink></li>
+                            <li className="menu_item"><NavLink exact to="/shop">Shop</NavLink></li>
+                            <li className="menu_item"><NavLink exact to="/contact">Contact</NavLink></li>
                         </ul>
                     </div>
                 </div>
