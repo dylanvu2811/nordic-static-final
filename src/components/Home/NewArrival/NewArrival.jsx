@@ -1,9 +1,35 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './NewArrival.scss'; 
-import { NavLink } from 'react-router-dom';
+import ListProduct from './ListProduct/ListProduct';
+import productApi from '../../../api/productApi';
 
 class NewArrival extends PureComponent {
+
+    constructor (props) {
+        super(props);
+        this.state = {
+          listProduct: [],
+        };
+    }
+
+    async componentDidMount() {
+      try {
+        const filter = {
+          limit: 10,
+        };
+  
+        const params = {
+          filter: JSON.stringify(filter),
+        }
+        const response = await productApi.getAll(params);
+        const { body: listProduct } = response;
+        this.setState({ listProduct });
+      } catch (error) {
+        console.log('Failed to load list: ', error.message);
+      }
+    }
+
     render() {
         return (
             <div className="new_arrivals">
@@ -27,28 +53,7 @@ class NewArrival extends PureComponent {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col">
-                            <div className="product-grid" data-isotope="{ &quot;itemSelector&quot;: &quot;.product-item&quot;, &quot;layoutMode&quot;: &quot;fitRows&quot; }">
-                                {/* Product */}
-                                <div className="product-item">
-                                    <div className="product discount product_filter">
-                                        <div className="product_image">
-                                            <img src="images/product_1.png" alt />
-                                        </div>
-                                        <div className="favorite favorite_left" />
-                                        <div className="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
-                                        <div className="product_info">
-                                            <h6 className="product_name"><NavLink exact to="/single">Fujifilm X100T 16 MP Digital Camera (Silver)</NavLink></h6>
-                                            <div className="product_price">$520.00<span>$590.00</span></div>
-                                        </div>
-                                    </div>
-                                    <div className="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                                </div>
-                               
-                            </div>
-                        </div>
-                    </div>
+                    <ListProduct listProduct={this.state.listProduct} />
                 </div>
             </div>
 
