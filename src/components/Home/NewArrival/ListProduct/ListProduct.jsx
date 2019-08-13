@@ -12,9 +12,9 @@ class ListProduct extends PureComponent {
     render() {
         // console.log(this.props.listProduct);
         const listProduct = this.props.listProduct;
-        const itemProduct = listProduct.map((listProduct, index) => {
+        const itemProduct = listProduct.map((listProduct) => {
             return (
-                <ItemProduct key={index} item={listProduct} />
+                <ItemProduct key={listProduct.id} item={listProduct} />
             );
         });
         return (
