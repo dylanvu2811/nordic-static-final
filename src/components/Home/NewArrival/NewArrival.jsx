@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './NewArrival.scss'; 
 import ListProduct from './ListProduct/ListProduct';
 import productApi from '../../../api/productApi';
+import categoryApi from '../../../api/categoryApi';
+import ListCategory from './ListCategory/ListCategory';
 
 class NewArrival extends PureComponent {
 
@@ -10,6 +12,7 @@ class NewArrival extends PureComponent {
         super(props);
         this.state = {
           listProduct: [],
+          listcategory: [],
         };
     }
 
@@ -17,20 +20,52 @@ class NewArrival extends PureComponent {
       try {
         const filter = {
           limit: 10,
+          skip: 0,
         };
   
         const params = {
           filter: JSON.stringify(filter),
         }
         const response = await productApi.getAll(params);
+        const category = await categoryApi.getAllCate();
         const { body: listProduct } = response;
-        this.setState({ listProduct });
+        const { body: listcategory } = category;
+
+        this.setState({ listProduct,listcategory });
       } catch (error) {
         console.log('Failed to load list: ', error.message);
       }
     }
 
+    handleGetProductByCate = async (id) => {
+        // console.log(id);
+        try {
+          let filter = {
+            limit: 10,
+            skip: 0,
+          };
+          if(id !== ''){
+            filter = {
+              ...filter,
+              where: {
+                categoryId: id,
+              }
+          }};
+          // Get product list
+          const params = {
+            filter: JSON.stringify(filter),
+          }
+        
+          const response = await productApi.getAll(params);
+          const { body: listProduct } = response;
+          this.setState({ listProduct, categoryId: id });
+        } catch (error) {
+          console.log('Failed to load product list: ', error.message);
+        }
+    }
+
     render() {
+        const { listProduct, listcategory, categoryId} = this.state;
         return (
             <div className="new_arrivals">
                 <div className="container">
@@ -43,17 +78,10 @@ class NewArrival extends PureComponent {
                     </div>
                     <div className="row align-items-center">
                         <div className="col text-center">
-                            <div className="new_arrivals_sorting">
-                                <ul className="arrivals_grid_sorting clearfix button-group filters-button-group">
-                                    <li className="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
-                                    <li className="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".women">women's</li>
-                                    <li className="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">accessories</li>
-                                    <li className="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">men's</li>
-                                </ul>
-                            </div>
+                            <ListCategory onClickCate={this.handleGetProductByCate} listcategory={listcategory} categoryId={categoryId} />
                         </div>
                     </div>
-                    <ListProduct listProduct={this.state.listProduct} />
+                    <ListProduct listProduct={listProduct} />
                 </div>
             </div>
 

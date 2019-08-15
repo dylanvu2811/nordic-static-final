@@ -19,8 +19,6 @@ class Single extends PureComponent {
             <TabsSection />
             <ShippingInformation />
           </div>
-          
-
         );
     }
 }

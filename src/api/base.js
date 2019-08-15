@@ -6,6 +6,12 @@ class Base {
     //     const url = `${AppConstants.API_URL}/${this.getResourceName()}`;
     //     return fetchClient.get(url);
     // }
+
+    getAllCate() {
+        const url = `${AppConstants.API_URL}/${this.getResourceName()}`;
+        return fetchClient.get(url);
+    }
+
     getAll (params) {
         const url = `${AppConstants.API_URL}/${this.getResourceName()}`;
         const defaultParams = { _page: AppConstants.DEFAULT_PAGE, _limit: AppConstants.DEFAULT_LIMIT};
