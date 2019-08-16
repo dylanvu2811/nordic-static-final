@@ -13,6 +13,7 @@ class NewArrival extends PureComponent {
         this.state = {
           listProduct: [],
           listcategory: [],
+          categoryId:'',
         };
     }
 
