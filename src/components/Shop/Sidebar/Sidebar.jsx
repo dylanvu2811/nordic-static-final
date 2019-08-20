@@ -2,7 +2,21 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './Sidebar.scss'; 
 class Sidebar extends PureComponent {
+
+    constructor (props) {
+        super(props);
+        this.state = {
+
+        };
+        this.handleGetProductByCate = this.handleGetProductByCate.bind(this);
+    }
+
+    handleGetProductByCate(id) {
+        this.props.onClickCate(id);
+    }
     render() {
+        const { listCategory ,categoryId  } = this.props;
+
         return (
           <div className="sidebar">
             <div className="sidebar_section">
@@ -10,12 +24,9 @@ class Sidebar extends PureComponent {
                 <h5>Product Category</h5>
               </div>
               <ul className="sidebar_categories">
-                <li><a href="#">Men</a></li>
-                <li className="active"><a href="#"><span><i className="fa fa-angle-double-right" aria-hidden="true" /></span>Women</a></li>
-                <li><a href="#">Accessories</a></li>
-                <li><a href="#">New Arrivals</a></li>
-                <li><a href="#">Collection</a></li>
-                <li><a href="categories.html">shop</a></li>
+                {listCategory && listCategory.map( category =>
+                    <li className={`${categoryId === category.id?'active':''}`}><a href="javascript:void(0)" key={ category.id } onClick={() => this.handleGetProductByCate(category.id)}><span><i className={`${categoryId === category.id?'fa fa-angle-double-right':''}`} /></span>{ category.name }</a></li>
+                )}
               </ul>
             </div>
             {/* Price Range Filtering */}

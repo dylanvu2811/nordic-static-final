@@ -5,12 +5,15 @@ import Sidebar from '../../components/Shop/Sidebar/Sidebar';
 import MainContent from '../../components/Shop/MainContent/MainContent';
 import ShippingInformation from '../../components/Common/ShippingInformation/ShippingInformation';
 import productApi from '../../api/productApi';
+import categoryApi from '../../api/categoryApi';
 
 class Shop extends PureComponent {
     constructor (props) {
         super(props);
         this.state = {
           listProduct: [],
+          listCategory: [],
+          categoryId:'',
         };
     }
 
@@ -36,15 +39,57 @@ class Shop extends PureComponent {
             console.log('Failed to load list: ', error.message);
           }
     }
+
+    getListCategory = async () => {
+      try {
+        // get list cate
+        const category = await categoryApi.getAllCate();
+        const { body: listCategory } = category;
+        // new state
+        this.setState({ listCategory});
+  
+      } catch (error) {
+        console.log('Failed to load list: ', error.message);
+      }
+    }
+
     componentDidMount = async () => {
         try {
             this.getListProduct();
+            this.getListCategory();
         } catch {
           console.log('err');
         }
     }
+
+    handleGetProductByCate = async (id) => {
+        console.log(id);
+        try {
+          let filter = {
+            limit: 10,
+            skip: 0,
+          };
+          if(id !== ''){
+            filter = {
+              ...filter,
+              where: {
+                categoryId: id,
+              }
+          }};
+          // Get product list
+          const params = {
+            filter: JSON.stringify(filter),
+          }
+        
+          const response = await productApi.getAll(params);
+          const { body: listProduct } = response;
+          this.setState({ listProduct, categoryId: id });
+        } catch (error) {
+          console.log('Failed to load product list: ', error.message);
+        }
+    }
     render() {
-        const { listProduct } = this.state;
+        const { listProduct, listCategory, categoryId } = this.state;
         return (
           <div>
             <div className="container product_section_container">
@@ -53,7 +98,7 @@ class Shop extends PureComponent {
                   {/* Breadcrumbs */}
                   <Breadcrumbs />
                   {/* Sidebar */}
-                  <Sidebar />
+                  <Sidebar onClickCate={this.handleGetProductByCate} listCategory={listCategory} categoryId={categoryId} />
                   {/* MainContent */}
                   <MainContent listProduct={listProduct} />
                 </div>

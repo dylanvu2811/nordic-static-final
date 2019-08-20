@@ -7,20 +7,20 @@ import ShippingInformation from '../../components/Common/ShippingInformation/Shi
 import productApi from '../../api/productApi';
 class Single extends PureComponent {
 
-  constructor(props){
-    super(props);
-    this.state = {
-        productDetail: {},
-        loading: true,
-    };
-}
+    constructor(props){
+        super(props);
+        this.state = {
+            productDetail: {},
+            loading: true,
+        };
+    }
 
-async componentDidMount(){
-    const response = await productApi.getDetail(this.props.match.params.id);
-    const productDetail = response.body;
+    async componentDidMount(){
+        const response = await productApi.getDetail(this.props.match.params.id);
+        const productDetail = response.body;
+        this.setState({ productDetail, loading: false });
+    }
 
-    this.setState({ productDetail, loading: false });
-}
     render() {
         const { loading, productDetail } = this.state;
         if (loading) return <p>Loading product...</p>;
