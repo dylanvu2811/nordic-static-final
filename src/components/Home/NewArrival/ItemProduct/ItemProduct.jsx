@@ -10,7 +10,7 @@ class ItemProduct extends PureComponent {
             <div className="product-item">
                 <div className="product product_filter">
                     <div className="product_image">
-                        <img src={item.thumbnail} alt />
+                        <img src={item.thumbnail} />
                     </div>
                     <div className="favorite favorite_left" />
                     <div className="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>

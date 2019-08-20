@@ -1,9 +1,22 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './MainContent.scss'; 
-import { NavLink } from 'react-router-dom';
+import ItemProduct from '../ItemProduct/ItemProduct';
 class MainContent extends PureComponent {
+    constructor (props) {
+        super(props);
+        this.state = {
+
+        };
+    }
     render() {
+        // console.log(this.props.listProduct);
+        const listProduct = this.props.listProduct;
+        const itemProduct = listProduct.map((listProduct) => {
+            return (
+                <ItemProduct key={listProduct.id} item={listProduct} />
+            );
+        });
         return (
           <div className="main_content">
             {/* Products */}
@@ -49,20 +62,7 @@ class MainContent extends PureComponent {
                   {/* Product Grid */}
                   <div className="product-grid">
                     {/* Product */}
-                    <div className="product-item">
-                      <div className="product discount product_filter">
-                        <div className="product_image">
-                          <img src="images/product_1.png" alt="" />
-                        </div>
-                        <div className="favorite favorite_left" />
-                        <div className="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
-                        <div className="product_info">
-                          <h6 className="product_name"><NavLink exact to="/single">Fujifilm X100T 16 MP Digital Camera (Silver)</NavLink></h6>
-                          <div className="product_price">$520.00<span>$590.00</span></div>
-                        </div>
-                      </div>
-                      <div className="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                    </div>
+                    {itemProduct}
                    
                   </div>
                   {/* Product Sorting */}
