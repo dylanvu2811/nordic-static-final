@@ -13,16 +13,26 @@ class Shop extends PureComponent {
         this.state = {
           listProduct: [],
           listCategory: [],
-          categoryId:'',
+          categoryId: '',
+          limit: 12
         };
     }
 
     getListProduct = async () => {
-          try {
+      const { limit , categoryId } = this.state;
+      try {
             let filter = {
-              limit: 12,
+              limit: limit,
               skip: 0,
             };
+
+            if(categoryId !== ''){
+              filter = {
+                ...filter,
+                where: {
+                  categoryId: categoryId,
+                }
+            }};
       
             const params = {
               filter: JSON.stringify(filter),
@@ -34,7 +44,7 @@ class Shop extends PureComponent {
 
             // new state
             this.setState({ listProduct});
-      
+            console.log('duong',response);
           } catch (error) {
             console.log('Failed to load list: ', error.message);
           }
@@ -62,32 +72,15 @@ class Shop extends PureComponent {
         }
     }
 
-    handleGetProductByCate = async (id) => {
-        console.log(id);
-        try {
-          let filter = {
-            limit: 10,
-            skip: 0,
-          };
-          if(id !== ''){
-            filter = {
-              ...filter,
-              where: {
-                categoryId: id,
-              }
-          }};
-          // Get product list
-          const params = {
-            filter: JSON.stringify(filter),
-          }
-        
-          const response = await productApi.getAll(params);
-          const { body: listProduct } = response;
-          this.setState({ listProduct, categoryId: id });
-        } catch (error) {
-          console.log('Failed to load product list: ', error.message);
-        }
+    handleGetProductByCate = (id) => {
+      // console.log('duong', id);
+      this.setState({
+        categoryId:id
+      })
+      this.getListProduct();
+
     }
+
     render() {
         const { listProduct, listCategory, categoryId } = this.state;
         return (
