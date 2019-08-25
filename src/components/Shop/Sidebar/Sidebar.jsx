@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './Sidebar.scss'; 
+import InputRange from 'react-input-range';
+
 class Sidebar extends PureComponent {
 
     constructor (props) {
         super(props);
         this.state = {
-
+          priceValue: this.props.filter.priceRange,
         };
         this.handleGetProductByCate = this.handleGetProductByCate.bind(this);
     }
@@ -14,8 +16,11 @@ class Sidebar extends PureComponent {
     handleGetProductByCate(id) {
         this.props.onClickCate(id);
     }
+    handleChangePrice = (newValue) =>{
+      this.setState({priceValue: newValue});
+    }
     render() {
-        const { listCategory ,categoryId  } = this.props;
+        const { listCategory ,categoryId ,onChangePrice } = this.props;
 
         return (
           <div className="sidebar">
@@ -34,11 +39,10 @@ class Sidebar extends PureComponent {
               <div className="sidebar_title">
                 <h5>Filter by Price</h5>
               </div>
-              <p>
-                <input type="text" id="amount" readOnly style={{border: 0, color: '#f6931f', fontWeight: 'bold'}} />
-              </p>
-              <div id="slider-range" />
-              <div className="filter_button"><span>filter</span></div>
+              <div>
+                <InputRange maxValue={1000} minValue={0} value={this.state.priceValue} onChange={value => this.handleChangePrice(value)} />
+              </div>
+              <div className="filter_button" onClick={() => onChangePrice(this.state.priceValue)}><span>filter</span></div>
             </div>
           </div>
         );
