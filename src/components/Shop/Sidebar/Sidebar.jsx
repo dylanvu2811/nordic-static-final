@@ -20,7 +20,7 @@ class Sidebar extends PureComponent {
       this.setState({priceValue: newValue});
     }
     render() {
-        const { listCategory ,categoryId ,onChangePrice } = this.props;
+        const { listCategory ,onChangePrice , filter} = this.props;
 
         return (
           <div className="sidebar">
@@ -30,7 +30,7 @@ class Sidebar extends PureComponent {
               </div>
               <ul className="sidebar_categories">
                 {listCategory && listCategory.map( category =>
-                    <li className={`${categoryId === category.id?'active':''}`}><a href="javascript:void(0)" key={ category.id } onClick={() => this.handleGetProductByCate(category.id)}><span><i className={`${categoryId === category.id?'fa fa-angle-double-right':''}`} /></span>{ category.name }</a></li>
+                    <li className={`${filter.categoryId === category.id?'active':''}`}><a href="javascript:void(0)" key={ category.id } onClick={() => this.handleGetProductByCate(category.id)}><span><i className={`${filter.categoryId === category.id?'fa fa-angle-double-right':''}`} /></span>{ category.name } </a></li>
                 )}
               </ul>
             </div>

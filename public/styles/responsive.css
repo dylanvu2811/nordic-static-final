@@ -75,7 +75,7 @@
 	}
 	.product-item
 	{
-		height: 360px;
+		height: 360px !important;
 	}
 	.product
 	{
@@ -321,8 +321,8 @@
 	}
 	.product-item
 	{
-		width: 33.333333333333%;
-		height: 345px;
+		width: 33.333333333333% !important;
+		height: 345px !important;
 	}
 	.product
 	{
@@ -341,7 +341,7 @@
 	}
 	.product_slider_item .product-item
 	{
-		height: 380px;
+		height: 380px !important;
 	}
 	.benefit_col
 	{
@@ -374,8 +374,8 @@
 	}
 	.product-item
 	{
-		width: 50%;
-		height: 420px;
+		width: 50% !important;
+		height: 420px !important;
 	}
 	.product
 	{
@@ -528,8 +528,8 @@
 	}
 	.product-item
 	{
-		width: 100%;
-		height: auto;
+		width: 100% !important;
+		height: auto !important;
 	}
 	.product
 	{
@@ -578,8 +578,8 @@
 
 	.product_slider_item .product-item
 	{
-		width: 100%;
-		height: auto;
+		width: 100% !important;
+		height: auto !important;
 	}
 	.product_slider_item .product-item:hover::after
 	{

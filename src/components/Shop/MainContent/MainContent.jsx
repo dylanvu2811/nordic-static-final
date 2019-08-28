@@ -10,7 +10,7 @@ class MainContent extends PureComponent {
         };
     }
     render() {
-        const { listProduct, onClickChangePage, filter ,onClickChangeSkip} = this.props;
+        const { listProduct, onClickChangePage, filter , onClickChangeSkip, onClickChangeOrder} = this.props;
         const itemProduct = listProduct.map((listProduct) => {
             return (
                 <ItemProduct key={listProduct.id} item={listProduct} />
@@ -35,28 +35,31 @@ class MainContent extends PureComponent {
                   <div className="product_sorting_container product_sorting_container_top">
                     <ul className="product_sorting">
                       <li>
-                        <span className="type_sorting_text">Default Sorting</span>
+                        <span className={`type_sorting_text ${filter.order === ''?'sortactive':'hidden'}`}>Default Sorting</span>
+                        <span className={`type_sorting_text ${filter.order === 'salePrice'?'sortactive':'hidden'}`}>Price</span>
+                        <span className={`type_sorting_text ${filter.order === 'name'?'sortactive':'hidden'}`}>Product Name</span>
                         <i className="fa fa-angle-down" />
                         <ul className="sorting_type">
-                          <li className="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;original-order&quot; }"><span>Default Sorting</span></li>
-                          <li className="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;price&quot; }"><span>Price</span></li>
-                          <li className="type_sorting_btn" data-isotope-option="{ &quot;sortBy&quot;: &quot;name&quot; }"><span>Product Name</span></li>
+                          <li className="type_sorting_btn" onClick={() => onClickChangeOrder('')}><span>Default Sorting</span></li>
+                          <li className="type_sorting_btn" onClick={() => onClickChangeOrder('salePrice')}><span>Price</span></li>
+                          <li className="type_sorting_btn" onClick={() => onClickChangeOrder('name')}><span>Product Name</span></li>
                         </ul>
+
                       </li>
                       <li>
                         <span>Show</span>
                         <span className="num_sorting_text">{filter.limit}</span>
                         <i className="fa fa-angle-down" />
                         <ul className="sorting_num">
-                        <li className="num_sorting_btn" onClick={() => onClickChangePage(6)}>
-                          <span>6</span>
-                        </li>
-                        <li className="num_sorting_btn" onClick={() => onClickChangePage(12)}>
-                          <span>12</span>
-                        </li>
-                        <li className="num_sorting_btn" onClick={() => onClickChangePage(24)}>
-                          <span>24</span>
-                        </li>
+                          <li className="num_sorting_btn" onClick={() => onClickChangePage(6)}>
+                            <span>6</span>
+                          </li>
+                          <li className="num_sorting_btn" onClick={() => onClickChangePage(12)}>
+                            <span>12</span>
+                          </li>
+                          <li className="num_sorting_btn" onClick={() => onClickChangePage(24)}>
+                            <span>24</span>
+                          </li>
                         </ul>
                       </li>
                     </ul>
@@ -82,17 +85,21 @@ class MainContent extends PureComponent {
                     <ul className="product_sorting">
                       <li>
                         <span>Show:</span>
-                        <span className="num_sorting_text">04</span>
+                        <span className="num_sorting_text">{filter.limit}</span>
                         <i className="fa fa-angle-down" />
                         <ul className="sorting_num">
-                          <li className="num_sorting_btn"><span>01</span></li>
-                          <li className="num_sorting_btn"><span>02</span></li>
-                          <li className="num_sorting_btn"><span>03</span></li>
-                          <li className="num_sorting_btn"><span>04</span></li>
+                          <li className="num_sorting_btn" onClick={() => onClickChangePage(6)}>
+                            <span>6</span>
+                          </li>
+                          <li className="num_sorting_btn" onClick={() => onClickChangePage(12)}>
+                            <span>12</span>
+                          </li>
+                          <li className="num_sorting_btn" onClick={() => onClickChangePage(24)}>
+                            <span>24</span>
+                          </li>
                         </ul>
                       </li>
                     </ul>
-                    <span className="showing_results">Showing 1–3 of 12 results</span>
                     <div className="pages d-flex flex-row align-items-center">
                       <div className="page_current">
                         <span>{filter.page}</span>

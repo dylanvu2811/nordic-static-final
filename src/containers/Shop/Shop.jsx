@@ -17,12 +17,15 @@ class Shop extends PureComponent {
         const limit = urlParams.get("limit");
         const skip = urlParams.get("skip");
         const page = urlParams.get('page');
+        const order = urlParams.get('order');
+        const categoryId = urlParams.get('categoryId');
         this.state = {
           filter: {
-            categoryId: '',
+            categoryId: categoryId?categoryId:'',
             limit:limit?limit:6,
             skip: skip?skip:0,
             page: page?page:1,
+            order: order?order:'',
             priceRange: { 
               min: minPrice?Number(minPrice):0, 
               max: maxPrice?Number(maxPrice):1000
@@ -34,13 +37,14 @@ class Shop extends PureComponent {
     }
 
     getListProduct = async (filter) => {
-      const { priceRange, categoryId,limit,skip,page } = filter;
+      const { priceRange, categoryId, limit, skip, page, order } = filter;
       try {
             // get list product by price
             let filter = {
               limit: limit,
               skip: skip,
               page: page,
+              order: order,
               where: {
                 and: [
                   { salePrice: { gte: priceRange.min } },
@@ -68,7 +72,7 @@ class Shop extends PureComponent {
 
             // new state
             this.setState({ listProduct});
-            // console.log('duong',response);
+            // console.log('duong',categoryId);
           } catch (error) {
             console.log('Failed to load list: ', error.message);
           }
@@ -96,7 +100,7 @@ class Shop extends PureComponent {
         }
     }
     URL = (filter) => {
-        return `/shop?limit=${filter.limit}&skip=${filter.skip}&fromPrice=${filter.priceRange.min}&toPrice=${filter.priceRange.max}&page=${filter.page}` 
+        return `/shop?limit=${filter.limit}&skip=${filter.skip}&categoryId=${filter.categoryId}&fromPrice=${filter.priceRange.min}&toPrice=${filter.priceRange.max}&page=${filter.page}&order=${filter.order}` 
     }
     handleGetProductByCate = (id) => {
       // console.log('duong', id);
@@ -110,6 +114,7 @@ class Shop extends PureComponent {
       }
       this.setState({newfilter})
       this.getListProduct(newfilter.filter);
+      this.props.history.replace(this.URL(newfilter.filter));
     }
 
     handleChangePrice = (newValue) => {
@@ -154,6 +159,20 @@ class Shop extends PureComponent {
       this.props.history.replace(this.URL(newfilter.filter));
     }
 
+    handleChangeOrder = (order) => {
+      const { filter } = this.state;
+      const newfilter = {
+          ...this.state,
+          filter: {
+              ...filter,
+              order: order,
+          }
+      }
+      this.setState(newfilter);
+      this.getListProduct(newfilter.filter);
+      this.props.history.replace(this.URL(newfilter.filter));
+    }
+
     render() {
         const { filter, listProduct, listCategory, categoryId } = this.state;
         return (
@@ -164,9 +183,9 @@ class Shop extends PureComponent {
                   {/* Breadcrumbs */}
                   <Breadcrumbs />
                   {/* Sidebar */}
-                  <Sidebar onClickCate={this.handleGetProductByCate} listCategory={listCategory} categoryId={categoryId} onChangePrice = {this.handleChangePrice} filter={filter} />
+                  <Sidebar filter = {filter} onClickCate={this.handleGetProductByCate} listCategory={listCategory} categoryId={categoryId} onChangePrice = {this.handleChangePrice} filter={filter} />
                   {/* MainContent */}
-                  <MainContent listProduct={listProduct} onClickChangePage = {this.handleChangePage} filter = {filter} onClickChangeSkip = {this.handleChangeSkip}/>
+                  <MainContent listProduct={listProduct} onClickChangePage = {this.handleChangePage} filter = {filter} onClickChangeSkip = {this.handleChangeSkip} onClickChangeOrder = {this.handleChangeOrder} />
                 </div>
               </div>
             </div>
