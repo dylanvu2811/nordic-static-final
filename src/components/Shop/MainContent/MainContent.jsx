@@ -10,13 +10,21 @@ class MainContent extends PureComponent {
         };
     }
     render() {
-        // console.log(this.props.listProduct);
-        const listProduct = this.props.listProduct;
+        const { listProduct, onClickChangePage, filter ,onClickChangeSkip} = this.props;
         const itemProduct = listProduct.map((listProduct) => {
             return (
                 <ItemProduct key={listProduct.id} item={listProduct} />
             );
         });
+
+        const totalProduct = 32;
+        const pageCount = Math.ceil(totalProduct/filter.limit);
+        let currentPage = [];
+        for (let x = 1; x <= pageCount; x++) {
+          let skip = (filter.limit * x) - filter.limit
+          currentPage.push(<li key={x} onClick={() => onClickChangeSkip(skip)} ><a>{x}</a></li>);
+        }
+        // console.log('duong',pageCount);
         return (
           <div className="main_content">
             {/* Products */}
@@ -37,25 +45,29 @@ class MainContent extends PureComponent {
                       </li>
                       <li>
                         <span>Show</span>
-                        <span className="num_sorting_text">6</span>
+                        <span className="num_sorting_text">{filter.limit}</span>
                         <i className="fa fa-angle-down" />
                         <ul className="sorting_num">
-                          <li className="num_sorting_btn"><span>6</span></li>
-                          <li className="num_sorting_btn"><span>12</span></li>
-                          <li className="num_sorting_btn"><span>24</span></li>
+                        <li className="num_sorting_btn" onClick={() => onClickChangePage(6)}>
+                          <span>6</span>
+                        </li>
+                        <li className="num_sorting_btn" onClick={() => onClickChangePage(12)}>
+                          <span>12</span>
+                        </li>
+                        <li className="num_sorting_btn" onClick={() => onClickChangePage(24)}>
+                          <span>24</span>
+                        </li>
                         </ul>
                       </li>
                     </ul>
                     <div className="pages d-flex flex-row align-items-center">
                       <div className="page_current">
-                        <span>1</span>
+                        <span>{filter.page}</span>
                         <ul className="page_selection">
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
+                          {currentPage}
                         </ul>
                       </div>
-                      <div className="page_total"><span>of</span> 3</div>
+                      <div className="page_total"><span>of</span> {pageCount}</div>
                       <div id="next_page" className="page_next"><a href="#"><i className="fa fa-long-arrow-right" aria-hidden="true" /></a></div>
                     </div>
                   </div>
@@ -83,14 +95,12 @@ class MainContent extends PureComponent {
                     <span className="showing_results">Showing 1–3 of 12 results</span>
                     <div className="pages d-flex flex-row align-items-center">
                       <div className="page_current">
-                        <span>1</span>
+                        <span>{filter.page}</span>
                         <ul className="page_selection">
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
+                          {currentPage}
                         </ul>
                       </div>
-                      <div className="page_total"><span>of</span> 3</div>
+                      <div className="page_total"><span>of</span> {pageCount}</div>
                       <div id="next_page_1" className="page_next"><a href="#"><i className="fa fa-long-arrow-right" aria-hidden="true" /></a></div>
                     </div>
                   </div>
