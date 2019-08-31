@@ -1,5 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addToCart, changeNotify } from './../../actions/index';
+
 import Breadcrumbs from '../../components/Shop/Breadcrumbs/Breadcrumbs';
 import Sidebar from '../../components/Shop/Sidebar/Sidebar';
 import MainContent from '../../components/Shop/MainContent/MainContent';
@@ -33,6 +37,7 @@ class Shop extends PureComponent {
           },
           listProduct: [],
           listCategory: [],
+          // value:1,
         };
     }
 
@@ -173,6 +178,15 @@ class Shop extends PureComponent {
       this.props.history.replace(this.URL(newfilter.filter));
     }
 
+    handleAddToCart = (item) => {
+      this.props.changeNotify('duonggggg');
+      // let quanlity = this.state.value;
+      // this.setState(quanlity);
+      // console.log(quanlity + '-----'+ item.id);
+      this.props.addToCart(item ,1);
+
+    }
+
     render() {
         const { filter, listProduct, listCategory, categoryId } = this.state;
         return (
@@ -185,7 +199,7 @@ class Shop extends PureComponent {
                   {/* Sidebar */}
                   <Sidebar filter = {filter} onClickCate={this.handleGetProductByCate} listCategory={listCategory} categoryId={categoryId} onChangePrice = {this.handleChangePrice} filter={filter} />
                   {/* MainContent */}
-                  <MainContent listProduct={listProduct} onClickChangePage = {this.handleChangePage} filter = {filter} onClickChangeSkip = {this.handleChangeSkip} onClickChangeOrder = {this.handleChangeOrder} />
+                  <MainContent onClickAddToCart = {this.handleAddToCart} listProduct={listProduct} onClickChangePage = {this.handleChangePage} filter = {filter} onClickChangeSkip = {this.handleChangeSkip} onClickChangeOrder = {this.handleChangeOrder} />
                 </div>
               </div>
             </div>
@@ -199,4 +213,11 @@ Shop.propTypes = {
 
 };
 
-export default Shop;
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    addToCart,
+    changeNotify
+  }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(Shop);

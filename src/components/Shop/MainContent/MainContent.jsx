@@ -10,10 +10,10 @@ class MainContent extends PureComponent {
         };
     }
     render() {
-        const { listProduct, onClickChangePage, filter , onClickChangeSkip, onClickChangeOrder} = this.props;
+        const { listProduct, onClickChangePage, filter , onClickChangeSkip, onClickChangeOrder , onClickAddToCart} = this.props;
         const itemProduct = listProduct.map((listProduct) => {
             return (
-                <ItemProduct key={listProduct.id} item={listProduct} />
+                <ItemProduct key={listProduct.id} item={listProduct} onClickAddToCart = {onClickAddToCart} />
             );
         });
 

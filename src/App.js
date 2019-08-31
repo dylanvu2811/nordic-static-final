@@ -7,6 +7,7 @@ import Shop from './containers/Shop/Shop';
 import Footer from './components/Common/Footer/Footer';
 import Single from './containers/Single/Single';
 import Contact from './containers/Contact/Contact';
+import Cart from './containers/Cart/Cart';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/shop" component={Shop} />
             <Route path="/product/:id" component={Single} />
             <Route exact path="/contact" component={Contact} />
+            <Route exact path="/cart" component={Cart} />
           </Switch>
           <Footer />
       </BrowserRouter>

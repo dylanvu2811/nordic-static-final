@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import './Header.scss'; 
-
+import { connect } from 'react-redux';
+import { sumBy } from 'lodash';
 class Header extends PureComponent {
     render() {
+        let {items} = this.props;
         return (
             <div>
                 <header className="header trans_300">
@@ -65,10 +67,11 @@ class Header extends PureComponent {
                                             {/* <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li> */}
                                             {/* <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li> */}
                                             <li className="checkout">
-                                                <a href="#">
-                                                <i className="fa fa-shopping-cart" aria-hidden="true" />
-                                                <span id="checkout_items" className="checkout_items">2</span>
-                                                </a>
+                                                <NavLink exact to="/cart">
+                                                    <i className="fa fa-shopping-cart" aria-hidden="true" />
+                                                    <span id="checkout_items" className="checkout_items">{this.showTotalQuantityProduct(items)}</span>
+                                                </NavLink>
+                                                
                                             </li>
                                         </ul>
                                         <div className="hamburger_container">
@@ -129,10 +132,24 @@ class Header extends PureComponent {
             </div>
         );
     }
+
+    showTotalQuantityProduct(items) {
+      let html = <span>0</span>
+      if (items.length > 0) {
+        let totalQuantity = sumBy(items, 'quantity');
+        console.log(totalQuantity);
+        html = <span> {totalQuantity}</span>
+      }
+      return <div>{html}</div>;
+    }
 }
 
 Header.propTypes = {
 
 };
-
-export default Header;
+const mapStateToProps = state => {
+  return {
+    items: state.carts
+  }
+}
+export default connect(mapStateToProps, null)(Header);

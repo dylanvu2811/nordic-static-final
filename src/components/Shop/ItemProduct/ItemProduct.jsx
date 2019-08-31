@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 class ItemProduct extends PureComponent {
+
+    // handleAddToCart = (item) => {
+    //     console.log(item);
+    // }
     render() {
-        const {item} = this.props;
+        const {item , onClickAddToCart} = this.props;
         return (
           <div className="product-item">
             <div className="product discount product_filter">
@@ -18,7 +22,7 @@ class ItemProduct extends PureComponent {
                 <div className="product_price">${item.salePrice}<span>${item.originalPrice}</span></div>
               </div>
             </div>
-            <div className="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+            <div className="red_button add_to_cart_button"><a href="#" onClick={() => onClickAddToCart(item)} >add to cart</a></div>
           </div>
         );
     }
