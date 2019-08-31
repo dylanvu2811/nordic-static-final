@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import * as configs from './../../actions/Config';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addToCart, changeNotify } from './../../actions/index';
-
 import Breadcrumbs from '../../components/Shop/Breadcrumbs/Breadcrumbs';
 import Sidebar from '../../components/Shop/Sidebar/Sidebar';
 import MainContent from '../../components/Shop/MainContent/MainContent';
@@ -179,12 +179,8 @@ class Shop extends PureComponent {
     }
 
     handleAddToCart = (item) => {
-      this.props.changeNotify('duonggggg');
-      // let quanlity = this.state.value;
-      // this.setState(quanlity);
-      // console.log(quanlity + '-----'+ item.id);
       this.props.addToCart(item ,1);
-
+      this.props.changeNotify(configs.NOTIFY_ACT_ADD);
     }
 
     render() {

@@ -1,5 +1,6 @@
 import * as types from './../actions/ActionType';
 import * as configs from './../actions/Config';
+import { remove } from 'lodash';
 
 let defaultState = [];
 let cartItems = JSON.parse(localStorage.getItem(configs.CARTS_STOGRARE));
@@ -14,9 +15,10 @@ let getPositionProduct = (cartItems, product) => {
 }
 
 const cartsReducer = (state = defaultState, action) => {
+    let { product, quantity } = action;
     switch(action.type) {
         case types.ADD_PRODUCT:
-            let { product, quantity } = action;
+            
             let position = getPositionProduct(state, product);
             if ( position > -1) {
                 state[position].quantity += quantity;
@@ -25,6 +27,13 @@ const cartsReducer = (state = defaultState, action) => {
             }
             localStorage.setItem(configs.CARTS_STOGRARE, JSON.stringify(state));
             // console.log(action);
+            return [...state];
+        
+        case types.REMOVE_PRODUCT:   
+            remove(state, (cartItems) => {
+                return cartItems.product.id === product.id;
+            });
+            localStorage.setItem(configs.CARTS_STOGRARE, JSON.stringify(state));
             return [...state];
         default:
             return state;
