@@ -11,10 +11,11 @@ class ListProduct extends PureComponent {
     }
     render() {
         // console.log(this.props.listProduct);
+        const { onClickAddToCart } = this.props;
         const listProduct = this.props.listProduct;
         const itemProduct = listProduct.map((listProduct) => {
             return (
-                <ItemProduct key={listProduct.id} item={listProduct} />
+                <ItemProduct key={listProduct.id} item={listProduct} onClickAddToCart = {onClickAddToCart} />
             );
         });
         return (

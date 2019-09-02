@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 class ItemProduct extends PureComponent {
     render() {
         // console.log(this.props.item);
-        const {item} = this.props;
+        const { item, onClickAddToCart} = this.props;
         return (
             <div className="product-item">
                 <div className="product product_filter">
@@ -19,7 +19,7 @@ class ItemProduct extends PureComponent {
                         <div className="product_price">${item.salePrice}<span>${item.originalPrice}</span></div>
                     </div>
                 </div>
-                <div className="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                <div className="red_button add_to_cart_button"><a href="#" onClick={() => onClickAddToCart(item)} >add to cart</a></div>
             </div>
         );
     }

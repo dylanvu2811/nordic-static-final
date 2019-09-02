@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import CartItem from '../../components/Cart/CartItem';
 import Notify from '../../components/Notify/Notify';
 import { sumBy } from 'lodash';
+import './Cart.scss'; 
 
 class Cart extends PureComponent {
     render() {
         let {items} = this.props;
         
         return (
-            <div className="container contact_container">
+            <div className="container cart_container">
               <div className="row">
                 <div className="col">
                   <div className="breadcrumbs d-flex flex-row align-items-center">

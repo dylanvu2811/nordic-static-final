@@ -178,6 +178,7 @@ class Shop extends PureComponent {
       this.props.history.replace(this.URL(newfilter.filter));
     }
 
+    // add product to cart
     handleAddToCart = (item) => {
       this.props.addToCart(item ,1);
       this.props.changeNotify(configs.NOTIFY_ACT_ADD);

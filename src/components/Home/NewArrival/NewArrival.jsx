@@ -1,4 +1,8 @@
 import React, { PureComponent } from 'react';
+import * as configs from '../../../actions/Config';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addToCart, changeNotify } from '../../../actions/index';
 import PropTypes from 'prop-types';
 import './NewArrival.scss'; 
 import ListProduct from './ListProduct/ListProduct';
@@ -65,6 +69,12 @@ class NewArrival extends PureComponent {
         }
     }
 
+    // add product to cart
+    handleAddToCart = (item) => {
+      this.props.addToCart(item ,1);
+      this.props.changeNotify(configs.NOTIFY_ACT_ADD);
+    }
+
     render() {
         const { listProduct, listcategory, categoryId} = this.state;
         return (
@@ -82,7 +92,7 @@ class NewArrival extends PureComponent {
                             <ListCategory onClickCate={this.handleGetProductByCate} listcategory={listcategory} categoryId={categoryId} />
                         </div>
                     </div>
-                    <ListProduct listProduct={listProduct} />
+                    <ListProduct onClickAddToCart = {this.handleAddToCart} listProduct={listProduct} />
                 </div>
             </div>
 
@@ -94,4 +104,11 @@ NewArrival.propTypes = {
 
 };
 
-export default NewArrival;
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    addToCart,
+    changeNotify
+  }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(NewArrival);
