@@ -1,11 +1,40 @@
 import React, { PureComponent } from 'react';
+import * as configs from '../../../actions/Config';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addToCart, changeNotify } from '../../../actions/index';
 import PropTypes from 'prop-types';
 import './SingleProductPics.scss';
 
 class SingleProductPics extends PureComponent {
+    constructor (props) {
+        super(props);
+        this.state = {
+          quantity: 1,
+        };
+    }
+
+    handlePlusClick = () => {
+      this.setState({ ...this.state, quantity: this.state.quantity + 1 });
+
+    };
+  
+    handleMinusClick = () => {
+      if (this.state.quantity === 1) return;
+      this.setState({ ...this.state, quantity: this.state.quantity - 1 });
+    };
+
+    // add product to cart
+    handleAddToCart = (productDetail , quantity) => {
+      this.props.addToCart(productDetail , quantity);
+      this.props.changeNotify(configs.NOTIFY_ACT_ADD);
+    }
 
     render() {
       const { productDetail } = this.props;
+      const { quantity } = this.state;
+      console.log('duong', quantity);
+
       return (
         <div className="row">
           <div className="col-lg-7">
@@ -17,6 +46,7 @@ class SingleProductPics extends PureComponent {
                       <li><img src={`${productDetail.thumbnail}`} alt="" data-image={`${productDetail.image}`} /></li>
                       <li className="active"><img src={`${productDetail.thumbnail}`} alt="" data-image={`${productDetail.image}`} /></li>
                       <li><img src={`${productDetail.thumbnail}`} alt="" data-image={`${productDetail.image}`} /></li>
+                    
                     </ul>
                   </div>
                 </div>
@@ -57,11 +87,11 @@ class SingleProductPics extends PureComponent {
               <div className="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                 <span>Quantity:</span>
                 <div className="quantity_selector">
-                  <span className="minus"><i className="fa fa-minus" aria-hidden="true" /></span>
-                  <span id="quantity_value">1</span>
-                  <span className="plus"><i className="fa fa-plus" aria-hidden="true" /></span>
+                  <span className="minus" onClick={() => this.handleMinusClick()}><i className="fa fa-minus" aria-hidden="true" /></span>
+                  <span id="quantity_value">{quantity}</span>
+                  <span className="plus" onClick={() => this.handlePlusClick()}><i className="fa fa-plus" aria-hidden="true" /></span>
                 </div>
-                <div className="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                <div className="red_button add_to_cart_button"><a href="#" onClick={() => this.handleAddToCart(productDetail , quantity)} >add to cart</a></div>
                 <div className="product_favorite d-flex flex-column align-items-center justify-content-center" />
               </div>
             </div>
@@ -74,5 +104,11 @@ class SingleProductPics extends PureComponent {
 SingleProductPics.propTypes = {
 
 };
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    addToCart,
+    changeNotify
+  }, dispatch);
+};
 
-export default SingleProductPics;
+export default connect(null, mapDispatchToProps)(SingleProductPics);
