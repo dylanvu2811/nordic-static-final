@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { addToCart, changeNotify } from '../../../actions/index';
 import PropTypes from 'prop-types';
 import './SingleProductPics.scss';
-
+import { Link } from 'react-router-dom';
 class SingleProductPics extends PureComponent {
     constructor (props) {
         super(props);
@@ -38,7 +38,14 @@ class SingleProductPics extends PureComponent {
     render() {
       const { productDetail } = this.props;
       const { quantity, imgActive } = this.state;
-      // console.log('duong', quantity);
+      let originalPrice;
+
+      if(!(productDetail.originalPrice === productDetail.salePrice)) {
+        originalPrice = <span>${productDetail.originalPrice}</span>;
+          
+      }else {
+        originalPrice = '';
+      }
 
       return (
         <div className="row">
@@ -78,7 +85,7 @@ class SingleProductPics extends PureComponent {
               <div className="free_delivery d-flex flex-row align-items-center justify-content-center">
                 <span className="ti-truck" /><span>free delivery</span>
               </div>
-              <div className="original_price">${productDetail.originalPrice}</div>
+              <div className="original_price">{originalPrice}</div>
               <div className="product_price">${productDetail.salePrice}</div>
               <ul className="star_rating">
                 <li><i className="fa fa-star" aria-hidden="true" /></li>
@@ -102,7 +109,7 @@ class SingleProductPics extends PureComponent {
                   <span id="quantity_value">{quantity}</span>
                   <span className="plus" onClick={() => this.handlePlusClick()}><i className="fa fa-plus" aria-hidden="true" /></span>
                 </div>
-                <div className="red_button add_to_cart_button"><a href="#" onClick={() => this.handleAddToCart(productDetail , quantity)} >add to cart</a></div>
+                <div className="red_button add_to_cart_button"><Link onClick={() => this.handleAddToCart(productDetail , quantity)} >add to cart</Link></div>
                 <div className="product_favorite d-flex flex-column align-items-center justify-content-center" />
               </div>
             </div>

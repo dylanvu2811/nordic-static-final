@@ -55,7 +55,7 @@ class Header extends PureComponent {
                             <div className="row">
                                 <div className="col-lg-12 text-right">
                                     <div className="logo_container">
-                                        <a href="#">Nordic<span>Shop</span></a>
+                                        <NavLink exact to="/">Duong<span>Shop</span></NavLink>
                                     </div>
                                     <nav className="navbar">
                                         <ul className="navbar_menu">
@@ -64,14 +64,11 @@ class Header extends PureComponent {
                                             <li><NavLink exact to="/contact">Contact</NavLink></li>
                                         </ul>
                                         <ul className="navbar_user">
-                                            {/* <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li> */}
-                                            {/* <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li> */}
                                             <li className="checkout">
                                                 <NavLink exact to="/cart">
                                                     <i className="fa fa-shopping-cart" aria-hidden="true" />
                                                     <span id="checkout_items" className="checkout_items">{this.showTotalQuantityProduct(items)}</span>
                                                 </NavLink>
-                                                
                                             </li>
                                         </ul>
                                         <div className="hamburger_container">
@@ -137,7 +134,7 @@ class Header extends PureComponent {
       let html = <span>0</span>
       if (items.length > 0) {
         let totalQuantity = sumBy(items, 'quantity');
-        console.log(totalQuantity);
+        // console.log(totalQuantity);
         html = <span> {totalQuantity}</span>
       }
       return <div>{html}</div>;

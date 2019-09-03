@@ -32,7 +32,7 @@ class Footer extends PureComponent {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="footer_nav_container">
-                                <div className="cr">©2018 All Rights Reserverd. This template is made with <i className="fa fa-heart-o" aria-hidden="true" /> by <a href="#">Colorlib</a></div>
+                                <div className="cr">©2019 All Rights Reserverd. This template is made with <i className="fa fa-heart-o" aria-hidden="true" /> by <a href="https://www.facebook.com/dylanvu2811" target="_blank">Dương Vũ</a></div>
                             </div>
                         </div>
                     </div>

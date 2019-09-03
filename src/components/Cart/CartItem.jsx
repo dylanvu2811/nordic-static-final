@@ -42,7 +42,7 @@ class CartItem extends PureComponent {
                     </div>
                     <div className="col-4 col-sm-4 col-md-4">
                         <div className="quantity">
-                            <input type="number" name="value" max={99} min={1} value={quantity} className="qty" />
+                            <input name="value" max={99} min={1} value={quantity} className="qty" />
                         </div>
                     </div>
                     <div className="col-2 col-sm-2 col-md-2 text-right">
