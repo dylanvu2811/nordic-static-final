@@ -11,6 +11,7 @@ class SingleProductPics extends PureComponent {
         super(props);
         this.state = {
           quantity: 1,
+          imgActive: this.props.productDetail.image,
         };
     }
 
@@ -30,10 +31,14 @@ class SingleProductPics extends PureComponent {
       this.props.changeNotify(configs.NOTIFY_ACT_ADD);
     }
 
+    handleChangeActiveImage = image => {
+      this.setState({ ...this.state, imgActive: image });
+    };
+    
     render() {
       const { productDetail } = this.props;
-      const { quantity } = this.state;
-      console.log('duong', quantity);
+      const { quantity, imgActive } = this.state;
+      // console.log('duong', quantity);
 
       return (
         <div className="row">
@@ -43,16 +48,22 @@ class SingleProductPics extends PureComponent {
                 <div className="col-lg-3 thumbnails_col order-lg-1 order-2">
                   <div className="single_product_thumbnails">
                     <ul>
-                      <li><img src={`${productDetail.thumbnail}`} alt="" data-image={`${productDetail.image}`} /></li>
-                      <li className="active"><img src={`${productDetail.thumbnail}`} alt="" data-image={`${productDetail.image}`} /></li>
-                      <li><img src={`${productDetail.thumbnail}`} alt="" data-image={`${productDetail.image}`} /></li>
+
+                      <li className={productDetail.image === imgActive ? 'active' : ''} onClick={() => this.handleChangeActiveImage(productDetail.image)} >
+                        <img src={`${productDetail.thumbnail}`} alt="" />
+                      </li>
+                      {productDetail.thumbnails.map((thumbnail, id) => (
+                        <li key={id} className={productDetail.images[id] === imgActive ? 'active' : ''} onClick={() => this.handleChangeActiveImage(productDetail.images[id])} >
+                          <img src={thumbnail} alt={thumbnail} />
+                        </li>
+                      ))}
                     
                     </ul>
                   </div>
                 </div>
                 <div className="col-lg-9 image_col order-lg-2 order-1">
                   <div className="single_product_image">
-                    <div className="single_product_image_background" style={{backgroundImage: `url(${productDetail.image})`}} />
+                    <div className="single_product_image_background" style={{ backgroundImage: `url(${imgActive})` }} />
                   </div>
                 </div>
               </div>
