@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import CartItem from '../../components/Cart/CartItem';
-import Notify from '../../components/Notify/Notify';
 import { sumBy } from 'lodash';
 import './Cart.scss'; 
+import Notify from '../../components/Notify/Notify';
+import {NavLink} from 'react-router-dom';
 
 class Cart extends PureComponent {
     render() {
@@ -21,29 +22,35 @@ class Cart extends PureComponent {
                   </div>
                 </div>
               </div>
-              <div className="container">
-                  <div className="card shopping-cart">
-                    <div className="card-body">
-                     
-                      {/* PRODUCT */}
-                      {this.showProduct(items)}
-                      {/* END PRODUCT */}
-                
-                    <div className="pull-right">
-                      {this.showTotalPrice(items)}
+              <div className="row">
+                <div className="container">
+                    
+                    {this.showNotify(items)}
+                    <div className="card shopping-cart">
+                      <div className="card-body">
+                            {/* PRODUCT */}
+                            {this.showProduct(items)}
+                            {/* END PRODUCT */}
+                          <div className="pull-right">
+                            {this.showTotalPrice(items)}
+                          </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              
-                <Notify />
+                </div>    
+              </div>        
             </div>
         );
     }
 
     showProduct(items) {
       // console.log('duong', items);
-      let html = null;
+      let html =  <div className="empty-cart">
+                    <span className="empty-cart-image" />
+                    <p className="message">You have no items in your shopping cart.</p>
+                    <div className="red_button add_to_cart_button">
+                      <NavLink to="/shop">Continue shopping</NavLink>
+                    </div>
+                  </div>;
       if (items.length > 0) {
         html =  items.map((cartItem, index) => {
           return (
@@ -55,15 +62,18 @@ class Cart extends PureComponent {
     }
     showTotalPrice(items) {
       // console.log('duong', items);
-      let html = <span>Total price: <b>$0</b></span>;
+      let html = '';
       if (items.length > 0) {
         let totalPrice = sumBy(items, (item) => {
           return item.product.salePrice * item.quantity;;
         });
-        console.log(totalPrice);
+        // console.log(totalPrice);
         html = <span>Total price: <b>${totalPrice}</b></span>
       }
       return <div>{html}</div>;
+    }
+    showNotify(items) {
+      if (items.length > 0) return <Notify />;
     }
     
 }

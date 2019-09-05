@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './Header.scss'; 
 import { connect } from 'react-redux';
 import { sumBy } from 'lodash';
+
 class Header extends PureComponent {
     render() {
         let {items} = this.props;

@@ -9,19 +9,21 @@ class Sidebar extends PureComponent {
         super(props);
         this.state = {
           priceValue: this.props.filter.priceRange,
+          categoryId: '',
         };
         this.handleGetProductByCate = this.handleGetProductByCate.bind(this);
     }
 
     handleGetProductByCate(id) {
         this.props.onClickCate(id);
+        this.setState({ categoryId: id });
     }
     handleChangePrice = (newValue) =>{
       this.setState({priceValue: newValue});
     }
     render() {
-        const { listCategory ,onChangePrice , filter} = this.props;
 
+        const { listCategory ,onChangePrice } = this.props;
         return (
           <div className="sidebar">
             <div className="sidebar_section">
@@ -29,8 +31,9 @@ class Sidebar extends PureComponent {
                 <h5>Product Category</h5>
               </div>
               <ul className="sidebar_categories">
+                <li className={`${this.state.categoryId === ''?'active':''}`}><a href="javascript:void(0)" onClick={() => this.handleGetProductByCate('')}> <span><i className={`${this.state.categoryId === ''?'fa fa-angle-double-right':''}`} /></span> All</a></li>
                 {listCategory && listCategory.map( category =>
-                    <li className={`${filter.categoryId === category.id?'active':''}`}><a href="javascript:void(0)" key={ category.id } onClick={() => this.handleGetProductByCate(category.id)}><span><i className={`${filter.categoryId === category.id?'fa fa-angle-double-right':''}`} /></span>{ category.name } </a></li>
+                    <li className={`${this.state.categoryId === category.id?'active':''}`}><a href="javascript:void(0)" key={ category.id } onClick={() => this.handleGetProductByCate(category.id)}><span><i className={`${this.state.categoryId === category.id?'fa fa-angle-double-right':''}`} /></span>{ category.name } </a></li>
                 )}
               </ul>
             </div>

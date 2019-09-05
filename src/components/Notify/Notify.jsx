@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 class Notify extends PureComponent {
     render() {
         return (
-            <div>
-                <p>{this.props.notify}</p>
+            <div className="alert alert-success">
+                <strong>{this.props.notify}</strong> 
             </div>
         );
     }
