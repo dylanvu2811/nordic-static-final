@@ -9,6 +9,7 @@ import ListProduct from './ListProduct/ListProduct';
 import productApi from '../../../api/productApi';
 import categoryApi from '../../../api/categoryApi';
 import ListCategory from './ListCategory/ListCategory';
+import Loader from '../../Loader/Loader';
 
 class NewArrival extends PureComponent {
 
@@ -18,6 +19,7 @@ class NewArrival extends PureComponent {
           listProduct: [],
           listcategory: [],
           categoryId:'',
+          productLoading: true,
         };
     }
 
@@ -36,7 +38,7 @@ class NewArrival extends PureComponent {
         const { body: listProduct } = response;
         const { body: listcategory } = category;
 
-        this.setState({ listProduct,listcategory });
+        this.setState({ listProduct, listcategory, productLoading: false });
       } catch (error) {
         console.log('Failed to load list: ', error.message);
       }
@@ -63,7 +65,7 @@ class NewArrival extends PureComponent {
         
           const response = await productApi.getAll(params);
           const { body: listProduct } = response;
-          this.setState({ listProduct, categoryId: id });
+          this.setState({ listProduct, categoryId: id, productLoading: false });
         } catch (error) {
           console.log('Failed to load product list: ', error.message);
         }
@@ -76,7 +78,8 @@ class NewArrival extends PureComponent {
     }
 
     render() {
-        const { listProduct, listcategory, categoryId} = this.state;
+        const { listProduct, listcategory, categoryId, productLoading} = this.state;
+        if (productLoading) return <Loader />;
         return (
             <div className="new_arrivals">
                 <div className="container">

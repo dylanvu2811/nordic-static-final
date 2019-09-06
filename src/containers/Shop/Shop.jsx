@@ -10,6 +10,7 @@ import MainContent from '../../components/Shop/MainContent/MainContent';
 import ShippingInformation from '../../components/Common/ShippingInformation/ShippingInformation';
 import productApi from '../../api/productApi';
 import categoryApi from '../../api/categoryApi';
+import Loader from '../../components/Loader/Loader';
 
 class Shop extends PureComponent {
     constructor (props) {
@@ -37,7 +38,7 @@ class Shop extends PureComponent {
           },
           listProduct: [],
           listCategory: [],
-          // value:1,
+          productLoading: true,
         };
     }
 
@@ -76,7 +77,7 @@ class Shop extends PureComponent {
             const { body: listProduct } = response;
 
             // new state
-            this.setState({ listProduct});
+            this.setState({ listProduct, productLoading: false});
             // console.log('duong',categoryId);
           } catch (error) {
             console.log('Failed to load list: ', error.message);
@@ -185,7 +186,8 @@ class Shop extends PureComponent {
     }
 
     render() {
-        const { filter, listProduct, listCategory, categoryId } = this.state;
+        const { filter, listProduct, listCategory, categoryId, productLoading } = this.state;
+        if (productLoading) return <Loader />;
         return (
           <div>
             <div className="container product_section_container">
