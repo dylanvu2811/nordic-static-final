@@ -4,7 +4,7 @@ import CartItem from '../../components/Cart/CartItem';
 import { sumBy } from 'lodash';
 import './Cart.scss'; 
 import Notify from '../../components/Notify/Notify';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 
 class Cart extends PureComponent {
     render() {
@@ -16,8 +16,8 @@ class Cart extends PureComponent {
                 <div className="col">
                   <div className="breadcrumbs d-flex flex-row align-items-center">
                     <ul>
-                      <li><a href="index.html">Home</a></li>
-                      <li className="active"><a href="#"><i className="fa fa-angle-right" aria-hidden="true" />Shopping Cart</a></li>
+                      <li><Link exact to="/">Home</Link></li>
+                      <li className="active"><Link exact to="/cart"><i className="fa fa-angle-right" aria-hidden="true" />Shopping Cart</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ class Cart extends PureComponent {
           return item.product.salePrice * item.quantity;;
         });
         // console.log(totalPrice);
-        html = <span>Total price: <b>${totalPrice}</b></span>
+        html = <span>Total Price: <b>${totalPrice}</b></span>
       }
       return <div>{html}</div>;
     }
