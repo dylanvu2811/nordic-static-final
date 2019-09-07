@@ -5,25 +5,27 @@ import SingleProductPics from '../../components/Single/SingleProductPics/SingleP
 import TabsSection from '../../components/Single/TabsSection/TabsSection';
 import ShippingInformation from '../../components/Common/ShippingInformation/ShippingInformation';
 import productApi from '../../api/productApi';
+import Loader from '../../components/Loader/Loader';
+
 class Single extends PureComponent {
 
     constructor(props){
         super(props);
         this.state = {
             productDetail: {},
-            loading: true,
+            productLoading: true,
         };
     }
 
     async componentDidMount(){
         const response = await productApi.getDetail(this.props.match.params.id);
         const productDetail = response.body;
-        this.setState({ productDetail, loading: false });
+        this.setState({ productDetail, productLoading: false });
     }
 
     render() {
-        const { loading, productDetail } = this.state;
-        if (loading) return <p>Loading product...</p>;
+        const { productLoading, productDetail } = this.state;
+        if (productLoading) return <Loader />;
         return (
           <div>
             <div className="container single_product_container">
