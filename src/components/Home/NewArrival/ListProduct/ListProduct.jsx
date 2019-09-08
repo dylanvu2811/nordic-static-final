@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ItemProduct from '../ItemProduct/ItemProduct';
+import Loader from '../../../Loader/Loader';
 
 class ListProduct extends PureComponent {
 
@@ -11,7 +12,7 @@ class ListProduct extends PureComponent {
     }
     render() {
         // console.log(this.props.listProduct);
-        const { onClickAddToCart } = this.props;
+        const { onClickAddToCart, productLoading } = this.props;
         const listProduct = this.props.listProduct;
         const itemProduct = listProduct.map((listProduct) => {
             return (
@@ -21,9 +22,11 @@ class ListProduct extends PureComponent {
         return (
             <div className="row">
                 <div className="col">
-                    <div className="product-grid" data-isotope="{ &quot;itemSelector&quot;: &quot;.product-item&quot;, &quot;layoutMode&quot;: &quot;fitRows&quot; }">
+                    <div className="product-grid">
                         {/* Product */}
-                        {itemProduct}
+                        {/* {itemProduct} */}
+                        { productLoading && <Loader /> }
+                        { !productLoading && itemProduct }
                         
                     </div>
                 </div>

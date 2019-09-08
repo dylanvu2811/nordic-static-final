@@ -116,9 +116,10 @@ class Shop extends PureComponent {
           filter: {
               ...filter,
               categoryId: id,
-          }
+          },
+          productLoading: true,
       }
-      this.setState({newfilter})
+      this.setState(newfilter)
       this.getListProduct(newfilter.filter);
       this.props.history.replace(this.URL(newfilter.filter));
     }
@@ -130,7 +131,8 @@ class Shop extends PureComponent {
             filter: {
                 ...filter,
                 priceRange: newValue,
-            }
+            },
+            productLoading: true,
         }
         this.setState(newfilter);
         this.getListProduct(newfilter.filter);
@@ -144,7 +146,8 @@ class Shop extends PureComponent {
           filter: {
               ...filter,
               limit: limit,
-          }
+          },
+          productLoading: true,
       }
       this.setState(newfilter);
       this.getListProduct(newfilter.filter);
@@ -158,7 +161,8 @@ class Shop extends PureComponent {
               ...filter,
               skip: skip,
               page: (skip / filter.limit) + 1,
-          }
+          },
+          productLoading: true,
       }
       this.setState(newfilter);
       this.getListProduct(newfilter.filter);
@@ -172,7 +176,8 @@ class Shop extends PureComponent {
           filter: {
               ...filter,
               order: order,
-          }
+          },
+          productLoading: true,
       }
       this.setState(newfilter);
       this.getListProduct(newfilter.filter);
@@ -187,7 +192,7 @@ class Shop extends PureComponent {
 
     render() {
         const { filter, listProduct, listCategory, categoryId, productLoading } = this.state;
-        if (productLoading) return <Loader />;
+
         return (
           <div>
             <div className="container product_section_container">
@@ -198,7 +203,7 @@ class Shop extends PureComponent {
                   {/* Sidebar */}
                   <Sidebar filter = {filter} onClickCate={this.handleGetProductByCate} listCategory={listCategory} categoryId={categoryId} onChangePrice = {this.handleChangePrice} filter={filter} />
                   {/* MainContent */}
-                  <MainContent onClickAddToCart = {this.handleAddToCart} listProduct={listProduct} onClickChangePage = {this.handleChangePage} filter = {filter} onClickChangeSkip = {this.handleChangeSkip} onClickChangeOrder = {this.handleChangeOrder} />
+                  <MainContent productLoading = { productLoading } onClickAddToCart = {this.handleAddToCart} listProduct={listProduct} onClickChangePage = {this.handleChangePage} filter = {filter} onClickChangeSkip = {this.handleChangeSkip} onClickChangeOrder = {this.handleChangeOrder} />
                 </div>
               </div>
             </div>

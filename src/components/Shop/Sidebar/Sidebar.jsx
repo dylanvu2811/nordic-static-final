@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './Sidebar.scss'; 
 import InputRange from 'react-input-range';
+import { Link } from 'react-router-dom';
 
 class Sidebar extends PureComponent {
 
@@ -31,9 +32,9 @@ class Sidebar extends PureComponent {
                 <h5>Product Category</h5>
               </div>
               <ul className="sidebar_categories">
-                <li className={`${this.state.categoryId === ''?'active':''}`}><a href="javascript:void(0)" onClick={() => this.handleGetProductByCate('')}> <span><i className={`${this.state.categoryId === ''?'fa fa-angle-double-right':''}`} /></span> All</a></li>
+                <li className={`${this.state.categoryId === ''?'active':''}`}><Link onClick={() => this.handleGetProductByCate('')}> <span><i className={`${this.state.categoryId === ''?'fa fa-angle-double-right':''}`} /></span> All</Link></li>
                 {listCategory && listCategory.map( category =>
-                    <li className={`${this.state.categoryId === category.id?'active':''}`}><a href="javascript:void(0)" key={ category.id } onClick={() => this.handleGetProductByCate(category.id)}><span><i className={`${this.state.categoryId === category.id?'fa fa-angle-double-right':''}`} /></span>{ category.name } </a></li>
+                    <li className={`${this.state.categoryId === category.id?'active':''}`}><Link key={ category.id } onClick={() => this.handleGetProductByCate(category.id)}><span><i className={`${this.state.categoryId === category.id?'fa fa-angle-double-right':''}`} /></span>{ category.name } </Link></li>
                 )}
               </ul>
             </div>

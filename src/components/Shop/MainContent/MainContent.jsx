@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import './MainContent.scss'; 
 import ItemProduct from '../ItemProduct/ItemProduct';
+import Loader from '../../Loader/Loader';
 class MainContent extends PureComponent {
     constructor (props) {
         super(props);
@@ -10,7 +11,7 @@ class MainContent extends PureComponent {
         };
     }
     render() {
-        const { listProduct, onClickChangePage, filter , onClickChangeSkip, onClickChangeOrder , onClickAddToCart} = this.props;
+        const { listProduct, onClickChangePage, filter , onClickChangeSkip, onClickChangeOrder , onClickAddToCart, productLoading} = this.props;
         const itemProduct = listProduct.map((listProduct) => {
             return (
                 <ItemProduct key={listProduct.id} item={listProduct} onClickAddToCart = {onClickAddToCart} />
@@ -77,7 +78,8 @@ class MainContent extends PureComponent {
                   {/* Product Grid */}
                   <div className="product-grid">
                     {/* Product */}
-                    {itemProduct}
+                    { productLoading && <Loader /> }
+                    { !productLoading && itemProduct }
                    
                   </div>
                   {/* Product Sorting */}

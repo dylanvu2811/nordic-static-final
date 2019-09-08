@@ -9,7 +9,6 @@ import ListProduct from './ListProduct/ListProduct';
 import productApi from '../../../api/productApi';
 import categoryApi from '../../../api/categoryApi';
 import ListCategory from './ListCategory/ListCategory';
-import Loader from '../../Loader/Loader';
 
 class NewArrival extends PureComponent {
 
@@ -47,6 +46,7 @@ class NewArrival extends PureComponent {
     handleGetProductByCate = async (id) => {
         // console.log(id);
         try {
+          this.setState({ productLoading: true });
           let filter = {
             limit: 10,
             skip: 0,
@@ -56,7 +56,8 @@ class NewArrival extends PureComponent {
               ...filter,
               where: {
                 categoryId: id,
-              }
+              },
+              
           }};
           // Get product list
           const params = {
@@ -79,7 +80,6 @@ class NewArrival extends PureComponent {
 
     render() {
         const { listProduct, listcategory, categoryId, productLoading} = this.state;
-        if (productLoading) return <Loader />;
         return (
             <div className="new_arrivals">
                 <div className="container">
@@ -92,10 +92,10 @@ class NewArrival extends PureComponent {
                     </div>
                     <div className="row align-items-center">
                         <div className="col text-center">
-                            <ListCategory onClickCate={this.handleGetProductByCate} listcategory={listcategory} categoryId={categoryId} />
+                            <ListCategory productLoading = { productLoading } onClickCate={this.handleGetProductByCate} listcategory={listcategory} categoryId={categoryId} />
                         </div>
                     </div>
-                    <ListProduct onClickAddToCart = {this.handleAddToCart} listProduct={listProduct} />
+                    <ListProduct onClickAddToCart = {this.handleAddToCart} listProduct={listProduct} productLoading = { productLoading } />
                 </div>
             </div>
 
